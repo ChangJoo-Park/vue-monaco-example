@@ -57,7 +57,7 @@ const routes = [
         path: '/rank', component: rank
     },
     {
-        parh: '/problems/:num', component: solve
+        path: '/problems/:num', component: solve
     }
 
 

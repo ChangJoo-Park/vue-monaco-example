@@ -103,13 +103,18 @@
             </div>
         </div>
         <router-view></router-view>
+        <monaco-editor height="600" language="typescript" :code="code" :editorOptions="options" @mounted="onMounted" @codeChange="onCodeChange">
+        </monaco-editor>
         </div>
     </div>
 </template>
 
 <script>
-
+    import MonacoEditor from 'vue-monaco-editor'
     export default {
+        components: {
+            'monaco-editor' : MonacoEditor
+        },
         name: 'vm',
         data() {
             return {
@@ -125,6 +130,10 @@
                 linkInfo: '',
                 scrolled: '',
                 solveMenu: false,
+                code: '// Type away! \n',
+                options: {
+                    selectOnLineNumbers: false
+                }
             }
         },
         created() {
@@ -141,6 +150,12 @@
             window.addEventListener('scroll', this.scrollFunction);
         },
         methods: {
+            onMounted (editor) {
+                this.editor = editor
+            },
+            onCodeChange (editor) {
+                console.log(editor.getValue())
+            },
             scrollFunction() {
                 this.scrolled = window.scrollY;
             },
